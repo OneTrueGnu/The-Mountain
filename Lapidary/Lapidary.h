@@ -16,4 +16,9 @@ typedef int64_t		i64;
 typedef float 		f32;
 typedef double		f64;
 
+typedef unsigned char	ubyte;
+typedef unsigned short	ushort;
+typedef unsigned int	uint;
+typedef unsigned long	ulong;
+
 #endif /* Lapidary_h */
