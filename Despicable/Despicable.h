@@ -34,4 +34,9 @@ typedef struct {
 	f32 height;
 } Despicable_Rectangle;
 
+/*
+ * The size of `dst` must be large enough to hold 8 32-bit floats.
+ */
+void Despicable_Rectangle_calculateVertices(Despicable_Rectangle, f32* dst);
+
 #endif /* Despicable_h */
