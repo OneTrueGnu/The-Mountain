@@ -1,7 +1,14 @@
 #ifndef Lapidary_h
 #define Lapidary_h
-
+ 
 #include <stdint.h>
+
+#if defined(__clang__)
+
+#pragma clang diagnostic error "-Wimplicit-function-declaration"
+#pragma clang diagnostic error "-Wreturn-stack-address"
+
+#endif
 
 typedef uint8_t		u8;
 typedef uint16_t	u16;

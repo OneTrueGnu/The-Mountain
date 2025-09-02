@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 4.0.0)
 project(Wren)
 
-add_subdirectory(vendored/glad)
+include(FetchContent)
+FetchContent_Declare(
+	glad
+	SOURCE_DIR "/Users/mana/coding/cloned/glad/"
+)
+FetchContent_MakeAvailable(glad)
+
 add_subdirectory(vendored/stb_image)
 
 add_library(wren textured_quad.c texture_loading.c shader_loading.c)
