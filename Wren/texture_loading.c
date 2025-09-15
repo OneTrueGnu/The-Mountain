@@ -7,7 +7,7 @@
 #include <glad/glad.h>
 #include <stb_image.h>
 
-ChannelCount ImageFormat_correspondingChannelCount(ImageFormat image_format) {
+Wren_ChannelCount Wren_ImageFormat_correspondingWren_ChannelCount(Wren_ImageFormat image_format) {
 	switch(image_format) {
 		case IMAGE_FORMAT_JPEG:
 			return CHANNEL_COUNT_RGB;
@@ -16,8 +16,8 @@ ChannelCount ImageFormat_correspondingChannelCount(ImageFormat image_format) {
 	}
 }
 
-TextureAtlas* TextureAtlas_create_onHeap_n(const char* image_file_name, ImageFormat image_file_format) {
-	TextureAtlas* created_atlas = malloc(sizeof(TextureAtlas));
+Wren_TextureAtlas* Wren_TextureAtlas_create_onHeap_n(const char* image_file_name, Wren_ImageFormat image_file_format) {
+	Wren_TextureAtlas* created_atlas = malloc(sizeof(Wren_TextureAtlas));
 	
 	char* image_file_extension;
 	switch (image_file_format) {
@@ -38,7 +38,7 @@ TextureAtlas* TextureAtlas_create_onHeap_n(const char* image_file_name, ImageFor
 			&loaded_image_width,
 			&loaded_image_height,
 			&loaded_image_channel_count,
-			ImageFormat_correspondingChannelCount(image_file_format)
+			Wren_ImageFormat_correspondingWren_ChannelCount(image_file_format)
 			);
 
 	glActiveTexture(GL_TEXTURE0);
@@ -68,7 +68,7 @@ TextureAtlas* TextureAtlas_create_onHeap_n(const char* image_file_name, ImageFor
 		glGenerateMipmap(GL_TEXTURE_2D);
 	} glBindTexture(GL_TEXTURE_2D, 0);
 
-	*created_atlas = (TextureAtlas){
+	*created_atlas = (Wren_TextureAtlas){
 		.height = (u32)loaded_image_height,
 		.width = (u32)loaded_image_width,
 		.opengl_texture_id = loaded_texture_id,
@@ -83,12 +83,12 @@ TextureAtlas* TextureAtlas_create_onHeap_n(const char* image_file_name, ImageFor
 	return created_atlas;
 }
 
-void TextureAtlas_destroy_onHeap(TextureAtlas* atlas_to_destroy) {
+void Wren_TextureAtlas_destroy_onHeap(Wren_TextureAtlas* atlas_to_destroy) {
 	free(atlas_to_destroy->entries);
 	free(atlas_to_destroy);
 }
 
-u32 TextureAtlas_addEntry(TextureAtlas* atlas, TextureAtlasEntry new_entry) {
+u32 Wren_TextureAtlas_addEntry(Wren_TextureAtlas* atlas, Wren_TextureAtlasEntry new_entry) {
 	u32 new_entry_id = atlas->number_of_entries;
 
 	++atlas->number_of_entries;
@@ -96,25 +96,25 @@ u32 TextureAtlas_addEntry(TextureAtlas* atlas, TextureAtlasEntry new_entry) {
 		atlas->entries = realloc(atlas->entries, atlas->number_of_entries * (sizeof *atlas->entries));
 	}
 
-	memcpy(atlas->entries[new_entry_id], new_entry, sizeof(TextureAtlasEntry));
+	memcpy(atlas->entries[new_entry_id], new_entry, sizeof(Wren_TextureAtlasEntry));
 
 	return new_entry_id;
 }
 
-u32 TextureAtlas_addEntry_fromCoords(
-		TextureAtlas* atlas, 
+u32 Wren_TextureAtlas_addEntry_fromCoords(
+		Wren_TextureAtlas* atlas, 
 		u32 x0, 
 		u32 y0, 
 		u32 x1, 
 		u32 y1
 		) {
-	TextureAtlasEntry new_entry = { x0, y0, x1, y1 };
+	Wren_TextureAtlasEntry new_entry = { x0, y0, x1, y1 };
 
-	return TextureAtlas_addEntry(atlas, new_entry);
+	return Wren_TextureAtlas_addEntry(atlas, new_entry);
 }
 
-void TextureAtlas_getEntryUVs_intoFloats(
-		TextureAtlas* atlas, 
+void Wren_TextureAtlas_getEntryUVs_intoFloats(
+		Wren_TextureAtlas* atlas, 
 		u32 entry_id, 
 		f32* u0, 
 		f32* v0, 
@@ -127,12 +127,12 @@ void TextureAtlas_getEntryUVs_intoFloats(
 	*v1 = (f32)atlas->entries[entry_id][Y1] / (f32)atlas->height;
 }
 
-void TextureAtlas_getEntryUVs_intoArray(
-		TextureAtlas* atlas,
+void Wren_TextureAtlas_getEntryUVs_intoArray(
+		Wren_TextureAtlas* atlas,
 		u32 entry_id,
 		f32* dst
 		) {
-	TextureAtlas_getEntryUVs_intoFloats(atlas, entry_id, &(dst[0]), &(dst[1]), &(dst[2]), &(dst[3]));
+	Wren_TextureAtlas_getEntryUVs_intoFloats(atlas, entry_id, &(dst[0]), &(dst[1]), &(dst[2]), &(dst[3]));
 }
 
 

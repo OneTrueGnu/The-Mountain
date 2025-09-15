@@ -2,11 +2,11 @@
 
 #include <stdlib.h>
 
-TexturedQuad* TexturedQuad_create_onHeap(
-		TextureAtlas* atlas,
+Wren_TexturedQuad* Wren_TexturedQuad_create_onHeap(
+		Wren_TextureAtlas* atlas,
 		u32 atlas_entry_index,
 
-		ShaderProgram shader_program,
+		Wren_ShaderProgram shader_program,
 		
 		f32 x0,
 		f32 y0,
@@ -14,8 +14,8 @@ TexturedQuad* TexturedQuad_create_onHeap(
 		f32 y1
 		) {
 
-	TexturedQuad* created_quad = malloc(sizeof *created_quad);
-	*created_quad = (TexturedQuad){
+	Wren_TexturedQuad* created_quad = malloc(sizeof *created_quad);
+	*created_quad = (Wren_TexturedQuad){
 		.atlas = atlas,
 		.atlas_entry_index = atlas_entry_index,
 		.shader_program = shader_program,
@@ -31,7 +31,7 @@ TexturedQuad* TexturedQuad_create_onHeap(
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, created_quad->ebo);
 
 	f32 u0, v0, u1, v1;
-	TextureAtlas_getEntryUVs_intoFloats(created_quad->atlas, created_quad->atlas_entry_index, &u0, &v0, &u1, &v1);
+	Wren_TextureAtlas_getEntryUVs_intoFloats(created_quad->atlas, created_quad->atlas_entry_index, &u0, &v0, &u1, &v1);
 
     f32 vertex_data[16] = {
         x0, y0, u0, v0,  
@@ -58,7 +58,7 @@ TexturedQuad* TexturedQuad_create_onHeap(
 	return created_quad;
 }  
 
-void TexturedQuad_destroy_onHeap(TexturedQuad* quad) {
+void Wren_TexturedQuad_destroy_onHeap(Wren_TexturedQuad* quad) {
     if (quad == NULL) return;
 
     glDeleteVertexArrays(1, &quad->vao);
@@ -68,7 +68,7 @@ void TexturedQuad_destroy_onHeap(TexturedQuad* quad) {
     free(quad);
 }
 
-void TexturedQuad_render(TexturedQuad* quad) {
+void Wren_TexturedQuad_render(Wren_TexturedQuad* quad) {
     glUseProgram(quad->shader_program.id);
     glBindTexture(GL_TEXTURE_2D, quad->atlas->opengl_texture_id);
     glBindVertexArray(quad->vao);

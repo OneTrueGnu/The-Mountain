@@ -4,7 +4,7 @@ project(Wren)
 include(FetchContent)
 FetchContent_Declare(
 	glad
-	SOURCE_DIR "/Users/mana/coding/cloned/glad/"
+	SOURCE_DIR "/Users/mana/coding/cloned/glad"
 )
 FetchContent_MakeAvailable(glad)
 

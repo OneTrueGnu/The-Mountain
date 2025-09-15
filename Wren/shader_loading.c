@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-ShaderProgram ShaderProgram_create_ff(
+Wren_ShaderProgram Wren_ShaderProgram_create_ff(
 		const char* vertex_shader_source_path, 
 		const char* fragment_shader_source_path
 		) {
@@ -19,7 +19,7 @@ ShaderProgram ShaderProgram_create_ff(
 				fragment_shader_source_path,
 				strerror(errno)
 			  );
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	FILE* fragment_shader_stream = fopen(fragment_shader_source_path, "r");
@@ -31,7 +31,7 @@ ShaderProgram ShaderProgram_create_ff(
 				fragment_shader_source_path,
 				strerror(errno)
 			  );
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	fseek(vertex_shader_stream, 0, SEEK_END);
@@ -78,7 +78,7 @@ ShaderProgram ShaderProgram_create_ff(
 		glDeleteShader(vertex_shader);
 		glDeleteShader(fragment_shader);
 
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	i32 fragment_shader_compilation_was_successful;
@@ -100,7 +100,7 @@ ShaderProgram ShaderProgram_create_ff(
 		glDeleteShader(vertex_shader);
 		glDeleteShader(fragment_shader);
 
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	u32 shader_program = glCreateProgram();
@@ -130,13 +130,13 @@ ShaderProgram ShaderProgram_create_ff(
 
 		glDeleteProgram(shader_program);
 
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
-	return (ShaderProgram){ .successfully_created = true, .id = shader_program};
+	return (Wren_ShaderProgram){ .successfully_created = true, .id = shader_program};
 }
 
-ShaderProgram ShaderProgram_create_nn(
+Wren_ShaderProgram Wren_ShaderProgram_create_nn(
 		const char *vertex_shader_source_name, 
 		const char *fragment_shader_source_name
 		) {
@@ -144,23 +144,23 @@ ShaderProgram ShaderProgram_create_nn(
 	char* vertex_shader_source_path; 
 	if (-1 == asprintf(&vertex_shader_source_path, "resources/shaders/%s.glsl", vertex_shader_source_name)) {
 		printf("ERROR: Failed to create shader source path from vertex shader source name \"%s\": %s\n", vertex_shader_source_name, strerror(errno));
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	char* fragment_shader_source_path; 
 	if (-1 == asprintf(&fragment_shader_source_path, "resources/shaders/%s.glsl", fragment_shader_source_name)) {
 		printf("ERROR: Failed to create shader source path from fragment shader source name \"%s\": %s\n", fragment_shader_source_name, strerror(errno));
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
-	ShaderProgram created_program = ShaderProgram_create_ff(vertex_shader_source_path, fragment_shader_source_path);
+	Wren_ShaderProgram created_program = Wren_ShaderProgram_create_ff(vertex_shader_source_path, fragment_shader_source_path);
 	if (!created_program.successfully_created) {
 		printf(
 				"ERROR: Failed to create shader program from source names \"%s\" (vertex) and \"%s\" (fragment). There was probably already an error message saying why.\n", 
 				vertex_shader_source_name, 
 				fragment_shader_source_name
 			  );
-		return (ShaderProgram){ .successfully_created = false };
+		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	free(vertex_shader_source_path);
