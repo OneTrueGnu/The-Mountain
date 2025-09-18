@@ -145,14 +145,14 @@ Wren_ShaderProgram Wren_ShaderProgram_create_nn(
 	const u64 conversion_specifier_length = 2;
 
 	const u64 vertex_shader_source_path_length = strlen(format_string) + strlen(vertex_shader_source_name) - conversion_specifier_length;
-	char* vertex_shader_source_path; 
+	char* vertex_shader_source_path = malloc((sizeof *vertex_shader_source_path) * (vertex_shader_source_path_length+1));
 	if (-1 == snprintf(vertex_shader_source_path, vertex_shader_source_path_length, format_string, vertex_shader_source_name)) {
 		printf("ERROR: Failed to create shader source path from vertex shader source name \"%s\": %s\n", vertex_shader_source_name, strerror(errno));
 		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	const u64 fragment_shader_source_path_length = strlen(format_string) + strlen(fragment_shader_source_name) - conversion_specifier_length;
-	char* fragment_shader_source_path; 
+	char* fragment_shader_source_path = malloc((sizeof *fragment_shader_source_path) * (fragment_shader_source_path_length+1)); 
 	if (-1 == snprintf(fragment_shader_source_path, fragment_shader_source_path_length, format_string, fragment_shader_source_name)) {
 		printf("ERROR: Failed to create shader source path from fragment shader source name \"%s\": %s\n", fragment_shader_source_name, strerror(errno));
 		return (Wren_ShaderProgram){ .successfully_created = false };
