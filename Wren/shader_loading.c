@@ -13,7 +13,7 @@ Wren_ShaderProgram Wren_ShaderProgram_create_ff(
 	FILE* vertex_shader_stream = fopen(vertex_shader_source_path, "r");
 	if (vertex_shader_stream == NULL) {
 		printf(
-				"ERROR: Failed to open vertex shader source file %s for reading while creating a shader program from %s and %s: %s\n", 
+				"ROOT ERROR: Failed to open vertex shader source file %s for reading while creating a shader program from %s and %s: %s\n", 
 				vertex_shader_source_path,
 				vertex_shader_source_path,
 				fragment_shader_source_path,
@@ -25,7 +25,7 @@ Wren_ShaderProgram Wren_ShaderProgram_create_ff(
 	FILE* fragment_shader_stream = fopen(fragment_shader_source_path, "r");
 	if (fragment_shader_stream == NULL) {
 		printf(
-				"ERROR: Failed to open fragment shader source file %s for reading while creating a shader program from %s and %s: %s\n", 
+				"ROOT ERROR: Failed to open fragment shader source file %s for reading while creating a shader program from %s and %s: %s\n", 
 				fragment_shader_source_path,
 				vertex_shader_source_path,
 				fragment_shader_source_path,
@@ -68,7 +68,7 @@ Wren_ShaderProgram Wren_ShaderProgram_create_ff(
 
 		glGetShaderInfoLog(vertex_shader, required_infolog_size, NULL, infolog_buffer);
 		printf(
-				"ERROR: Failed to compile vertex shader found in %s. Error message: %s\n",
+				"ROOT ERROR: Failed to compile vertex shader found in %s. Error message: %s\n",
 				vertex_shader_source_path,
 				infolog_buffer
 			  );
@@ -90,7 +90,7 @@ Wren_ShaderProgram Wren_ShaderProgram_create_ff(
 
 		glGetShaderInfoLog(fragment_shader, required_infolog_size, NULL, infolog_buffer);
 		printf(
-				"ERROR: Failed to compile fragment shader found in %s. Error message: %s\n",
+				"ROOT ERROR: Failed to compile fragment shader found in %s. Error message: %s\n",
 				fragment_shader_source_path,
 				infolog_buffer
 			  );
@@ -120,7 +120,7 @@ Wren_ShaderProgram Wren_ShaderProgram_create_ff(
 
 		glGetProgramInfoLog(shader_program, required_infolog_space, NULL, infolog_buffer);
 		printf(
-				"ERROR: Failed to link shader program built from source files %s and %s. Error message: %s\n",
+				"ROOT ERROR: Failed to link shader program built from source files %s and %s. Error message: %s\n",
 				vertex_shader_source_path,
 				fragment_shader_source_path,
 				infolog_buffer
@@ -147,21 +147,21 @@ Wren_ShaderProgram Wren_ShaderProgram_create_nn(
 	const u64 vertex_shader_source_path_length = strlen(format_string) + strlen(vertex_shader_source_name) - conversion_specifier_length;
 	char* vertex_shader_source_path = malloc((sizeof *vertex_shader_source_path) * (vertex_shader_source_path_length+1));
 	if (-1 == snprintf(vertex_shader_source_path, vertex_shader_source_path_length, format_string, vertex_shader_source_name)) {
-		printf("ERROR: Failed to create shader source path from vertex shader source name \"%s\": %s\n", vertex_shader_source_name, strerror(errno));
+		fprintf(stderr, "ROOT ERROR: Failed to create shader source path from vertex shader source name \"%s\": %s\n", vertex_shader_source_name, strerror(errno));
 		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	const u64 fragment_shader_source_path_length = strlen(format_string) + strlen(fragment_shader_source_name) - conversion_specifier_length;
 	char* fragment_shader_source_path = malloc((sizeof *fragment_shader_source_path) * (fragment_shader_source_path_length+1)); 
 	if (-1 == snprintf(fragment_shader_source_path, fragment_shader_source_path_length, format_string, fragment_shader_source_name)) {
-		printf("ERROR: Failed to create shader source path from fragment shader source name \"%s\": %s\n", fragment_shader_source_name, strerror(errno));
+		fprintf(stderr, "ROOT ERROR: Failed to create shader source path from fragment shader source name \"%s\": %s\n", fragment_shader_source_name, strerror(errno));
 		return (Wren_ShaderProgram){ .successfully_created = false };
 	}
 
 	Wren_ShaderProgram created_program = Wren_ShaderProgram_create_ff(vertex_shader_source_path, fragment_shader_source_path);
 	if (!created_program.successfully_created) {
-		printf(
-				"ERROR: Failed to create shader program from source names \"%s\" (vertex) and \"%s\" (fragment). There was probably already an error message saying why.\n", 
+		fprintf(stderr,
+				"Error: Failed to create shader program from source names \"%s\" (vertex) and \"%s\" (fragment).\n", 
 				vertex_shader_source_name, 
 				fragment_shader_source_name
 			  );
