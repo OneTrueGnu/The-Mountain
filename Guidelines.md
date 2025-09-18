@@ -21,8 +21,8 @@ Exceptions include:
 		rule would defeat Lapidary's purpose.
 
 ### Capitalization
-Each label in a type's name must use UpperCamelCase.
-The lowest-label level in a function's name must be named using lowerCamelCase.
+Each label in a type's name must use `UpperCamelCase`.
+The lowest-label level in a function's name must be named using `lowerCamelCase`.
 Local variables, function arguments, and `struct` field names must only contain
 one label, which must use `snake_case`.
 
@@ -34,4 +34,4 @@ errors. This pattern is used to emulate the behaviour of a `main()` function, so
 every C programmer is familiar with.
 
 Generally, a given error value should only be returned by one code path, so that
-the value can be used to better understand what went wrong when debugging.
+the value can be used to better understand what went wrong, to help with debugging.
