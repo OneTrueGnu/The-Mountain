@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0.0)
+cmake_minimum_required(VERSION 3.31)
 project(Wren)
 
 add_library(glad src/glad.c)

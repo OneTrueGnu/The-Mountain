@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.31)
 project(Wren)
 
 add_library(stb_image stb_image_implementation.c)
