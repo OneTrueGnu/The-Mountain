@@ -35,8 +35,15 @@ typedef struct {
 } Despicable_Rectangle;
 
 /*
+ * The size of `dst` must be large enough to hold 4 `Despicable_2DVector`s
+ */
+void Despicable_2DVector_calculateVertices_intoVectors(Despicable_Rectangle, Despicable_2DVector* dst);
+
+/*
  * The size of `dst` must be large enough to hold 8 32-bit floats.
  */
-void Despicable_Rectangle_calculateVertices(Despicable_Rectangle, f32* dst);
+void Despicable_Rectangle_calculateVertices_intoFloats(Despicable_Rectangle, f32* dst);
+
+f32 Despicable_fastInvSqrt(f32, u8 newton_iterations);
 
 #endif /* Despicable_h */
