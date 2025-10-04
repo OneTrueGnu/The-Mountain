@@ -26,7 +26,7 @@ typedef struct {
  * Creates and links a shader program given a vertex shader and fragment shader.
  *
  * The shaders are passed by "name", without a file extension or parent directory.
- * It is assumed that all shaders are located in `resources/shaders`, and are
+ * It is assumed that all shaders are located in `resources/shaders`
  */
 Wren_ShaderProgram Wren_ShaderProgram_create_nn(
 		const char* vertex_shader_source_name,
@@ -44,7 +44,7 @@ typedef enum {
 	CHANNEL_COUNT_RGBA = 4,
 } Wren_ChannelCount;
 
-Wren_ChannelCount Wren_ImageFormat_correspondingWren_ChannelCount(Wren_ImageFormat);
+Wren_ChannelCount Wren_ImageFormat_correspondingChannelCount(Wren_ImageFormat);
 
 typedef enum {
 	X0, Y0, X1, Y1

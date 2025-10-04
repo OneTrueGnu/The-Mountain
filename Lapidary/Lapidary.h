@@ -7,6 +7,7 @@
 
 #pragma clang diagnostic error "-Wimplicit-function-declaration"
 #pragma clang diagnostic error "-Wreturn-stack-address"
+#pragma clang diagnostic error "-Wimplicit-int"
 
 #endif
 

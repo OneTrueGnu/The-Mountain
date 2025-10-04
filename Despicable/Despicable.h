@@ -44,6 +44,4 @@ void Despicable_2DVector_calculateVertices_intoVectors(Despicable_Rectangle, Des
  */
 void Despicable_Rectangle_calculateVertices_intoFloats(Despicable_Rectangle, f32* dst);
 
-f32 Despicable_fastInvSqrt(f32, u8 newton_iterations);
-
 #endif /* Despicable_h */

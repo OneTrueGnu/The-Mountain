@@ -7,7 +7,7 @@
 #include <glad/glad.h>
 #include <stb_image.h>
 
-Wren_ChannelCount Wren_ImageFormat_correspondingWren_ChannelCount(Wren_ImageFormat image_format) {
+Wren_ChannelCount Wren_ImageFormat_correspondingChannelCount(Wren_ImageFormat image_format) {
 	switch(image_format) {
 		case IMAGE_FORMAT_JPEG:
 			return CHANNEL_COUNT_RGB;
@@ -38,7 +38,7 @@ Wren_TextureAtlas* Wren_TextureAtlas_create_onHeap_n(const char* image_file_name
 			&loaded_image_width,
 			&loaded_image_height,
 			&loaded_image_channel_count,
-			Wren_ImageFormat_correspondingWren_ChannelCount(image_file_format)
+			Wren_ImageFormat_correspondingChannelCount(image_file_format)
 			);
 
 	glActiveTexture(GL_TEXTURE0);
