@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.31)
 project(Wren)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+set(CMAKE_C_STANDARD 99)
+
 add_subdirectory(vendored/stb_image)
 add_subdirectory(vendored/glad)
 

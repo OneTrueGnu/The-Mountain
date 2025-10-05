@@ -12,8 +12,14 @@ f64 Despicable_max_f64(f64, f64);
 void Despicable_clamp_f64(f64* clamped_value, f64 lower_bound, f64 upper_bound);
 
 typedef struct {
-	f32 x;
-	f32 y;
+	union {
+		f32 x;
+		f32 u;
+	};
+	union {
+		f32 y;
+		f32 v;
+	};
 } Despicable_2DVector;
 
 Despicable_2DVector Despicable_2DVector_sum(Despicable_2DVector, Despicable_2DVector);
@@ -37,7 +43,7 @@ typedef struct {
 /*
  * The size of `dst` must be large enough to hold 4 `Despicable_2DVector`s
  */
-void Despicable_2DVector_calculateVertices_intoVectors(Despicable_Rectangle, Despicable_2DVector* dst);
+void Despicable_Rectangle_calculateVertices_intoVectors(Despicable_Rectangle, Despicable_2DVector* dst);
 
 /*
  * The size of `dst` must be large enough to hold 8 32-bit floats.
