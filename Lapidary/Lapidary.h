@@ -29,4 +29,9 @@ typedef unsigned short	ushort;
 typedef unsigned int	uint;
 typedef unsigned long	ulong;
 
+#define u8enum(enumtype) u8
+#define u16enum(enumtype) u16
+#define u32enum(enumtype) u32
+#define u64enum(enumtype) u64
+
 #endif /* Lapidary_h */
